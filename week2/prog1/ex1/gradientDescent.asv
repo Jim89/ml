@@ -7,11 +7,6 @@ function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)
 m = length(y); % number of training examples
 J_history = zeros(num_iters, 1);
 
-% set up constants
-const = alpha * 1/m;        % never changes as alpha and m are constant
-x0 = X(:, 1);               % static data
-x1 = X(:, 2);               % static data
-
 for iter = 1:num_iters
 
     % ====================== YOUR CODE HERE ======================
@@ -21,21 +16,32 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
-     
+    
+    % set up constant
+    const = alpha * 1/m;
+    
     % set up calculations
     theta0 = theta(1);
     theta1 = theta(2);
     
     % perform common calculation
-    hx = X*theta;                   % work out predicted values
-    e = (hx - y);                   % error = calculate residuals
+    hx = X*theta;
+    e = (hx - y);
     
-    % adjustments
-    temp0 = theta0 - const * sum(e .* x0);          % adjust theta0
-    temp1 = theta1 - const * sum(e .* x1);          % adjust theta1
+    
+    
+    
+    
+    e_adj = e .* X(:, 2);
+    summat = sum(e_adj);
+    
+    adjustment = const * summat
+    
+    temp0 = theta(1) - adjustment
+    temp1 = theta(2) - adjustment
 
-    % updadate theta
-    theta = [temp0; temp1];                          % put adjusted values
+
+
 
     % ============================================================
 
