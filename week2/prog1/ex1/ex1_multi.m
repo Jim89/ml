@@ -104,7 +104,15 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+footage = 1650 - mu(1);
+footage = footage / sigma(1);
+
+br = 3 - mu(2);
+br = br / sigma(2);
+
+x = [1, footage, br];
+
+price = x*theta; % You should change this
 
 
 % ============================================================
@@ -138,6 +146,8 @@ m = length(y);
 % Add intercept term to X
 X = [ones(m, 1) X];
 
+%% Work out what's going on
+
 % Calculate the parameters from the normal equation
 theta = normalEqn(X, y);
 
@@ -149,7 +159,7 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+price = [1, 1650, 3] * theta; % You should change this
 
 
 % ============================================================
