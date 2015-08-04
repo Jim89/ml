@@ -37,6 +37,32 @@ grad = zeros(size(theta));
 %
 
 
+% set up constants
+const = 1/m;                    % 1/m for unregularised cost
+
+% common properties
+thetax = (X*theta);             % thetaT * X
+gthetax = sigmoid(thetax);      % sigmoid
+
+
+% CALCULATE THE COST
+% calculations for J(theta):
+lhs = log(gthetax);             % lhs log
+rhs = log(1 - gthetax);         % rhs log
+lhs_mult = -y .* lhs;           % lhs expression
+rhs_mult = (1-y) .* rhs;        % rhs expression   
+diff = lhs_mult - rhs_mult;     % difference in lhs and rhs
+j_summat = sum(diff);           % sum difference for J
+
+% return value for J
+J = (const * j_summat) + lambda/(2*m) * sum(power(theta(2:end),2)); 
+
+
+% CALCULATE THE GRADIENT
+hOfXMinusY = gthetax - y;
+hOfXMinusYTimeX = X' * hOfXMinusY;
+grad(1) = const * hOfXMinusYTimeX(1);
+grad(2:end) = const * hOfXMinusYTimeX(2:end) + ((lambda/m) * theta(2:end));
 
 
 
