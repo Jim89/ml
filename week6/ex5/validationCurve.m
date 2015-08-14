@@ -16,6 +16,9 @@ lambda_vec = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3 10]';
 error_train = zeros(length(lambda_vec), 1);
 error_val = zeros(length(lambda_vec), 1);
 
+m = size(X, 1);
+mval = size(Xval, 1);
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return training errors in 
 %               error_train and the validation errors in error_val. The 
@@ -39,12 +42,13 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
-
-
-
-
-
-
+for i = 1:length(lambda_vec);
+    [theta] = trainLinearReg(X, y, lambda_vec(i));
+    j_train = (1/(2*m)) * sum(((X*theta) - y).^2);
+   j_cv = (1/(2*mval)) * sum((((Xval*theta) - yval).^2));
+   error_train(i) = j_train;
+   error_val(i) = j_cv;
+end;    
 
 
 
