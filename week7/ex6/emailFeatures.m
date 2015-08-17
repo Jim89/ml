@@ -47,8 +47,14 @@ x = zeros(n, 1);
 %              x = [ 0 0 0 0 1 0 0 0 ... 0 0 0 0 1 ... 0 0 0 1 0 ..];
 %
 %
-
-
+for i = 1:n;
+    if sum(word_indices == i);
+        x(i) = 1;
+    else
+        x(i) = 0;
+    end;
+end;
+    
 
 
 
